@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/15 19:46:18 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:12:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	is_correct_num(char **nums, int size)
 	return (1);
 }
 
-static void	initialize(char **argv, int argc, t_philo *data)
+static void	initialize(char **argv, int argc, t_program *data)
 {
 	data->philo_num = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -60,20 +60,9 @@ static void	initialize(char **argv, int argc, t_philo *data)
 		data->each_philo_must_eat_num = -1;
 }
 
-static void	launch_philos(t_philo *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->philo_num)
-	{
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
-	t_philo	data;
+	t_program	data;
 
 	if ((argc == 5 || argc == 6) && is_num(argv, argc)
 		&& is_correct_num(argv, argc))
