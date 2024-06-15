@@ -6,20 +6,43 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/15 16:51:22 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/15 19:46:18 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	is_positiv(char **nums)
+static int	is_num(char **argv, int argc)
 {
 	int	i;
+	int	y;
 
 	i = 1;
-	while (i < 6)
+	while (i < argc)
 	{
-		if (ft_atoi(nums[i++]) <= 0)
+		y = 0;
+		while (argv[i][y])
+		{
+			if (argv[i][y] >= '0' && argv[i][y] <= '9')
+				y++;
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int	is_correct_num(char **nums, int size)
+{
+	if (ft_atoi(nums[1]) <= 0 || ft_atoi(nums[1]) > 200)
+		return (0);
+	if (ft_atoi(nums[2]) <= 0 || ft_atoi(nums[3]) <= 0
+		|| ft_atoi(nums[4]) <= 0)
+		return (0);
+	if (size == 6)
+	{
+		if (ft_atoi(nums[5]) < 0)
 			return (0);
 	}
 	return (1);
@@ -37,13 +60,27 @@ static void	initialize(char **argv, int argc, t_philo *data)
 		data->each_philo_must_eat_num = -1;
 }
 
+static void	launch_philos(t_philo *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->philo_num)
+	{
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo	data;
 
-	if ((argc == 5 || argc == 6) && is_positiv(argv))
+	if ((argc == 5 || argc == 6) && is_num(argv, argc)
+		&& is_correct_num(argv, argc))
 	{
 		initialize(argv, argc, &data);
+		launch_philos(&data);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
