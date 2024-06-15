@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/15 16:42:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:14:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,24 @@
 
 typedef struct s_philo
 {
-	int	philo_num;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	each_philo_must_eat_num;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			must_eat_num;
+	pthread_t	th;
 }	t_philo;
 
-int	ft_atoi(const char *str);
+typedef struct s_program
+{
+	t_philo	*philos;
+	int		philo_num;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		each_philo_must_eat_num;
+}	t_program;
+
+int		ft_atoi(const char *str);
+void	launch_philos(t_program *data);
 
 #endif
