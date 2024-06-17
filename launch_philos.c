@@ -6,17 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/17 15:44:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:59:11 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*routine(void *data)
-{
-	data = NULL;
-	return (NULL);
-}
 
 static void	philo_init(t_program *data, t_philo *philos)
 {
@@ -32,7 +26,7 @@ static void	philo_init(t_program *data, t_philo *philos)
 	}
 }
 
-int	launch_philos(t_program *data)
+void	launch_philos(t_program *data, int	*error_flag)
 {
 	t_philo	*philos;
 	int		i;
@@ -45,20 +39,14 @@ int	launch_philos(t_program *data)
 	while (++i < data->philo_num)
 	{
 		if (pthread_create(&philos[i].th, NULL, &routine, &philos[i]))
-		{
-			free(philos);
-			return (1);
-		}
+			*error_flag = 1;
 	}
 	i = 0;
 	while (i < data->philo_num)
 	{
 		if (pthread_join(philos[i++].th, NULL))
-		{
-			free(philos);
-			return (1);
-		}
+			*error_flag = 1;
 	}
 	free(philos);
-	return (0);
+	*error_flag = 0;
 }

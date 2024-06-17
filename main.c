@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/17 15:29:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:55:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ static void	prog_data_init(char **argv, int argc, t_program *data)
 int	main(int argc, char **argv)
 {
 	t_program	data;
+	int			error_flag;
 
 	if ((argc == 5 || argc == 6) && is_num(argv, argc)
 		&& is_correct_num(argv, argc))
 	{
 		prog_data_init(argv, argc, &data);
-		if (launch_philos(&data))
+		launch_philos(&data, &error_flag);
+		if (error_flag)
 			return (1);
 		return (0);
 	}
