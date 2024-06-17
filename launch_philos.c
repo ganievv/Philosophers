@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/17 15:59:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/17 16:04:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ static void	philo_init(t_program *data, t_philo *philos)
 
 void	launch_philos(t_program *data, int	*error_flag)
 {
-	t_philo	*philos;
+	t_philo	philos[200];
 	int		i;
 
 	i = -1;
-	philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
-	if (philos == NULL)
-		return (1);
 	philo_init(data, philos);
 	while (++i < data->philo_num)
 	{
@@ -47,6 +44,5 @@ void	launch_philos(t_program *data, int	*error_flag)
 		if (pthread_join(philos[i++].th, NULL))
 			*error_flag = 1;
 	}
-	free(philos);
 	*error_flag = 0;
 }
