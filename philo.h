@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/15 20:14:39 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/17 15:42:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,8 @@
 # include <stdbool.h>
 # include <time.h>
 
-typedef struct s_philo
-{
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			must_eat_num;
-	pthread_t	th;
-}	t_philo;
-
 typedef struct s_program
 {
-	t_philo	*philos;
 	int		philo_num;
 	int		time_to_die;
 	int		time_to_eat;
@@ -42,7 +32,15 @@ typedef struct s_program
 	int		each_philo_must_eat_num;
 }	t_program;
 
+typedef struct s_philo
+{
+	t_program	*prog_data;
+	pthread_t	th;
+	int			id;
+	int			times_eaten;
+}	t_philo;
+
 int		ft_atoi(const char *str);
-void	launch_philos(t_program *data);
+int		launch_philos(t_program *data);
 
 #endif
