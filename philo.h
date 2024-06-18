@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 17:05:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/18 20:15:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
-# define MAX_PHILOSOPHERS 200
-
 typedef struct s_program
 {
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
+	struct timeval	start_time;
 	int				philo_num;
 	int				time_to_die;
 	int				time_to_eat;
@@ -48,5 +48,6 @@ typedef struct s_philo
 int		ft_atoi(const char *str);
 int		launch_philos(t_program *data);
 void	*routine(void *data);
+void	ft_usleep(useconds_t usec);
 
 #endif

@@ -6,19 +6,20 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 18:11:27 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/18 20:15:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	forks_init(t_program *data)
+static void	forks_and_starttime_init(t_program *data)
 {
 	int	i;
 
 	i = -1;
 	while (++i < data->philo_num)
 		pthread_mutex_init(&data->forks[i], NULL);
+	pthread_mutex_init(&data->print_mutex, NULL);
 }
 
 static void	set_forks(t_program *data, int i)
@@ -48,7 +49,7 @@ static int	philo_and_fork_init(t_program *data)
 		free(data->philos);
 		return (1);
 	}
-	forks_init(data);
+	forks_and_starttime_init(data);
 	while (i < data->philo_num)
 	{
 		data->philos[i].id = i;
@@ -65,6 +66,7 @@ static void	free_alloc_data(t_program *data)
 	int	i;
 
 	i = -1;
+	pthread_mutex_destroy(&data->print_mutex);
 	while (++i < data->philo_num)
 		pthread_mutex_destroy(&data->forks[i]);
 	if (data->philos)
@@ -82,6 +84,7 @@ int	launch_philos(t_program *data)
 	err_flag = 0;
 	if (philo_and_fork_init(data))
 		return (1);
+	gettimeofday(&data->start_time, NULL);
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
 		if (pthread_create(&data->philos[i].th, NULL,
