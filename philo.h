@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 16:23:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:52:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_philo
 }	t_philo;
 
 int		ft_atoi(const char *str);
-void	launch_philos(t_program *data, int	*error_flag);
+int		launch_philos(t_program *data);
 void	*routine(void *data);
 
 #endif
