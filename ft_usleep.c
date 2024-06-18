@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   ft_usleep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 17:45:43 by sganiev          ###   ########.fr       */
+/*   Created: 2024/06/18 17:45:24 by sganiev           #+#    #+#             */
+/*   Updated: 2024/06/18 17:45:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine(void *data)
+void	ft_usleep(useconds_t usec)
 {
-	t_philo	*philo;
+	struct timeval	start;
+	struct timeval	current;
+	long long		elapsed;
 
-	philo = (t_philo *)data;
-	while (true)
+	elapsed = 0;
+	gettimeofday(&start, NULL);
+	while (elapsed < usec)
 	{
-		if (philo->id + 1 % 2 != 0)
-		{
-		}
+		gettimeofday(&current, NULL);
+		elapsed = (current.tv_sec - start.tv_sec) * 1000000LL
+			+ (current.tv_usec - start.tv_usec);
 	}
-	return (NULL);
 }
