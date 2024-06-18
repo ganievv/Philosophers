@@ -6,11 +6,23 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 16:58:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:37:40 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	set_forks(t_program *data, int i)
+{
+	int	right_fork_index;
+
+	if (i == 0)
+		right_fork_index = data->philo_num - 1;
+	else
+		right_fork_index = i - 1;
+	data->philos[i].left_fork = &data->forks[i];
+	data->philos[i].right_fork = &data->forks[right_fork_index];
+}
 
 static int	philo_fork_init(t_program *data)
 {
@@ -32,6 +44,7 @@ static int	philo_fork_init(t_program *data)
 		data->philos[i].id = i;
 		data->philos[i].times_eaten = 0;
 		data->philos[i].prog_data = data;
+		set_forks(data, i);
 		i++;
 	}
 	return (0);

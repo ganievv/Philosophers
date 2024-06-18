@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 16:52:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:05:47 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ typedef struct s_philo
 {
 	t_program		*prog_data;
 	pthread_t		th;
-	pthread_mutex_t	*fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	int				id;
 	int				times_eaten;
 }	t_philo;
