@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:19:21 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 16:19:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:58:49 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ struct timeval *start_time, int time_to_eat)
 		(current_time.tv_sec - start_time->tv_sec) * 1000
 		+ (current_time.tv_usec - start_time->tv_usec) / 1000,
 		id + 1);
-	ft_usleep(time_to_eat);
+	ft_usleep(time_to_eat * 1000);
 	pthread_mutex_unlock(print_mutex);
 }
 

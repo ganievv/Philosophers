@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:37:47 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 16:41:49 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:59:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	sleep(t_philo *philo)
 		(current_time.tv_sec - philo->prog_data->start_time.tv_sec) * 1000
 		+ (current_time.tv_usec - philo->prog_data->start_time.tv_usec) / 1000,
 		philo->id + 1);
-	ft_usleep(philo->prog_data->time_to_sleep);
+	ft_usleep(philo->prog_data->time_to_sleep * 1000);
 	pthread_mutex_unlock(&philo->prog_data->print_mutex);
 }
