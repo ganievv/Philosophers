@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:19:21 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 18:11:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 19:28:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,20 @@ struct timeval *start_time, int time_to_eat)
 
 void	take_forks_and_eat(t_philo *philo)
 {
-	struct timeval	current_time;
-
-	take_fork(philo->left_fork, &philo->prog_data->print_mutex,
-		philo->id, &philo->prog_data->start_time);
-	take_fork(philo->right_fork, &philo->prog_data->print_mutex,
-		philo->id, &philo->prog_data->start_time);
+	if (philo->id + 1 % 2 != 0)
+	{
+		take_fork(philo->left_fork, &philo->prog_data->print_mutex,
+			philo->id, &philo->prog_data->start_time);
+		take_fork(philo->right_fork, &philo->prog_data->print_mutex,
+			philo->id, &philo->prog_data->start_time);
+	}
+	else
+	{
+		take_fork(philo->right_fork, &philo->prog_data->print_mutex,
+			philo->id, &philo->prog_data->start_time);
+		take_fork(philo->left_fork, &philo->prog_data->print_mutex,
+			philo->id, &philo->prog_data->start_time);
+	}
 	eat(philo->id, &philo->prog_data->print_mutex,
 		&philo->prog_data->start_time, philo->prog_data->time_to_eat);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
 }
