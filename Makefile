@@ -6,12 +6,14 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 18:28:31 by sganiev           #+#    #+#              #
-#    Updated: 2024/06/15 16:30:12 by sganiev          ###   ########.fr        #
+#    Updated: 2024/06/19 19:40:28 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-SRC = main.c ft_itoa.c
+
+SRC = main.c ft_itoa.c launch_philos.c routine.c ft_usleep.c \
+take_forks_and_eat.c sleep.c think.c \
 
 CFLAGS = -pthread -Wall -Wextra -Werror
 
