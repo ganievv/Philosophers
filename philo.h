@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 16:43:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 18:05:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct s_program
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
-	int				philo_num;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				each_philo_must_eat_num;
+	unsigned int	philo_num;
+	unsigned long	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
+	unsigned int	each_philo_must_eat_num;
 }	t_program;
 
 typedef struct s_philo
