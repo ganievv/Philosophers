@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 20:17:12 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:24:30 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	*routine(void *data)
 	while (check_last_meal_time(philo) && check_times_eaten(philo))
 	{
 		take_forks_and_eat(philo);
-		sleep(philo);
-		think(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }
