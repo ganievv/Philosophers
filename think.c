@@ -6,13 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:38:35 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 19:39:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:24:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	think(t_philo *philo)
+void	thinking(t_philo *philo)
 {
 	struct timeval	current_time;
 
