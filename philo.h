@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 16:20:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:43:19 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int		launch_philos(t_program *data);
 void	*routine(void *data);
 void	ft_usleep(useconds_t usec);
 void	take_forks_and_eat(t_philo *philo);
+void	sleep(t_philo *philo);
 
 #endif
