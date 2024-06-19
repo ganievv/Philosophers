@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:19:21 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 19:28:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 19:42:48 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ void	take_forks_and_eat(t_philo *philo)
 	}
 	eat(philo->id, &philo->prog_data->print_mutex,
 		&philo->prog_data->start_time, philo->prog_data->time_to_eat);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
