@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/18 20:15:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:28:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	forks_and_starttime_init(t_program *data)
 {
-	int	i;
+	unsigned int	i;
 
 	i = -1;
 	while (++i < data->philo_num)
@@ -36,7 +36,7 @@ static void	set_forks(t_program *data, int i)
 
 static int	philo_and_fork_init(t_program *data)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
@@ -63,7 +63,7 @@ static int	philo_and_fork_init(t_program *data)
 
 static void	free_alloc_data(t_program *data)
 {
-	int	i;
+	unsigned int	i;
 
 	i = -1;
 	pthread_mutex_destroy(&data->print_mutex);
@@ -77,8 +77,8 @@ static void	free_alloc_data(t_program *data)
 
 int	launch_philos(t_program *data)
 {
-	int	i;
-	int	err_flag;
+	unsigned int	i;
+	int				err_flag;
 
 	i = -1;
 	err_flag = 0;
