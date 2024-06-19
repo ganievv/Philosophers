@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 18:05:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/19 20:23:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
+typedef struct s_philo	t_philo;
+
 typedef struct s_program
 {
 	t_philo			*philos;
@@ -35,7 +37,7 @@ typedef struct s_program
 	unsigned int	each_philo_must_eat_num;
 }	t_program;
 
-typedef struct s_philo
+struct s_philo
 {
 	t_program		*prog_data;
 	pthread_t		th;
@@ -43,7 +45,8 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	int				id;
 	int				times_eaten;
-}	t_philo;
+	struct timeval	last_meal_time;
+};
 
 int		ft_atoi(const char *str);
 int		launch_philos(t_program *data);
@@ -51,5 +54,6 @@ void	*routine(void *data);
 void	ft_usleep(useconds_t usec);
 void	take_forks_and_eat(t_philo *philo);
 void	sleep(t_philo *philo);
+void	think(t_philo *philo);
 
 #endif
