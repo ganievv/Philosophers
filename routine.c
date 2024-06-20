@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/20 15:46:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:32:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ static int	check_last_meal_time(t_philo *philo)
 		- (philo->last_meal_time.tv_sec * 1000000
 			+ philo->last_meal_time.tv_usec);
 	if (elapsed >= philo->prog_data->time_to_die)
+	{
+		philo->prog_data->stop_flag = 1;
+		print_death(philo);
 		return (0);
+	}
 	else
 		return (1);
 }
@@ -51,7 +55,8 @@ void	*routine(void *data)
 
 	philo = (t_philo *)data;
 	gettimeofday(&philo->last_meal_time, NULL);
-	while (check_last_meal_time(philo) && check_times_eaten(philo))
+	while (!philo->prog_data->stop_flag && check_last_meal_time(philo)
+		&& check_times_eaten(philo))
 	{
 		take_forks_and_eat(philo);
 		sleeping(philo);

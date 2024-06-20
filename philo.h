@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 20:30:24 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:33:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_program
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	int				each_philo_must_eat_num;
+	int				stop_flag;
 }	t_program;
 
 struct s_philo
@@ -55,5 +56,6 @@ void	ft_usleep(useconds_t usec);
 void	take_forks_and_eat(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
+void	print_death(t_philo *philo);
 
 #endif

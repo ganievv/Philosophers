@@ -6,13 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 20:28:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:22:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	forks_and_starttime_init(t_program *data)
+static void	forks_and_starttime_mutex_init(t_program *data)
 {
 	unsigned int	i;
 
@@ -49,7 +49,8 @@ static int	philo_and_fork_init(t_program *data)
 		free(data->philos);
 		return (1);
 	}
-	forks_and_starttime_init(data);
+	forks_and_starttime_mutex_init(data);
+	data->stop_flag = 0;
 	while (i < data->philo_num)
 	{
 		data->philos[i].id = i;
