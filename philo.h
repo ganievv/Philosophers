@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/20 16:33:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:29:53 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ int		ft_atoi(const char *str);
 int		launch_philos(t_program *data);
 void	*routine(void *data);
 void	ft_usleep(useconds_t usec);
-void	take_forks_and_eat(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
-void	print_death(t_philo *philo);
+void	print_message(t_philo *philo, char *message);
 
 #endif

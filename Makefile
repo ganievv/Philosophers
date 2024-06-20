@@ -6,14 +6,13 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 18:28:31 by sganiev           #+#    #+#              #
-#    Updated: 2024/06/20 16:33:52 by sganiev          ###   ########.fr        #
+#    Updated: 2024/06/20 18:30:10 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = main.c ft_itoa.c launch_philos.c routine.c ft_usleep.c \
-take_forks_and_eat.c sleep.c think.c print_death.c \
+SRC = main.c ft_itoa.c launch_philos.c routine.c ft_usleep.c print_message.c
 
 CC = gcc
 

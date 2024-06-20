@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/20 16:32:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:27:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@
 // There’s no mechanism to print a message or handle the 
 // case when a philosopher dies
 
+static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
+{
+	pthread_mutex_lock(fork);
+	print_message(philo, "has taken a fork");
+}
+
+static void	take_forks_and_eat(t_philo *philo)
+{
+	if ((philo->id + 1) % 2 != 0)
+	{
+		take_fork(philo->left_fork, philo);
+		take_fork(philo->right_fork, philo);
+	}
+	else
+	{
+		take_fork(philo->right_fork, philo);
+		take_fork(philo->left_fork, philo);
+	}
+	print_message(philo, "is eating");
+	ft_usleep(philo->prog_data->time_to_eat);
+	gettimeofday(&philo->last_meal_time, NULL);
+	philo->times_eaten++;
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+}
+
 static int	check_last_meal_time(t_philo *philo)
 {
 	struct timeval		current_time;
@@ -29,10 +55,11 @@ static int	check_last_meal_time(t_philo *philo)
 	elapsed = (current_time.tv_sec * 1000000 + current_time.tv_usec)
 		- (philo->last_meal_time.tv_sec * 1000000
 			+ philo->last_meal_time.tv_usec);
+	printf("elapsed time: %lld\n", elapsed);
 	if (elapsed >= philo->prog_data->time_to_die)
 	{
 		philo->prog_data->stop_flag = 1;
-		print_death(philo);
+		print_message(philo, "died");
 		return (0);
 	}
 	else
@@ -59,8 +86,9 @@ void	*routine(void *data)
 		&& check_times_eaten(philo))
 	{
 		take_forks_and_eat(philo);
-		sleeping(philo);
-		thinking(philo);
+		print_message(philo, "is sleeping");
+		ft_usleep(philo->prog_data->time_to_sleep);
+		print_message(philo, "is thinking");
 	}
 	return (NULL);
 }
