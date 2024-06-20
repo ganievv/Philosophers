@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:19:21 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/20 15:58:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 16:14:51 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ struct timeval *start_time, int time_to_eat)
 
 void	take_forks_and_eat(t_philo *philo)
 {
-	if (philo->id + 1 % 2 != 0)
+	if ((philo->id + 1) % 2 != 0)
 	{
 		take_fork(philo->left_fork, &philo->prog_data->print_mutex,
 			philo->id, &philo->prog_data->start_time);
