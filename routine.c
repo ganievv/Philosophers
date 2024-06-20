@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 20:24:30 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:46:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@
 // 'current_time.tv_usec - philo->last_meal_time.tv_usec'
 // philo->last_meal_time.tv_usec couls be bigger
 
+// There’s no mechanism to print a message or handle the 
+// case when a philosopher dies
+
 static int	check_last_meal_time(t_philo *philo)
 {
 	struct timeval		current_time;
 	unsigned long long	elapsed;
 
 	gettimeofday(&current_time, NULL);
-	elapsed = (current_time.tv_sec - philo->last_meal_time.tv_sec) * 1000000
-		+ (current_time.tv_usec - philo->last_meal_time.tv_usec);
+	elapsed = (current_time.tv_sec * 1000000 + current_time.tv_usec)
+		- (philo->last_meal_time.tv_sec * 1000000
+			+ philo->last_meal_time.tv_usec);
 	if (elapsed >= philo->prog_data->time_to_die)
 		return (0);
 	else
@@ -46,8 +50,7 @@ void	*routine(void *data)
 	t_philo			*philo;
 
 	philo = (t_philo *)data;
-	philo->last_meal_time.tv_sec = 0;
-	philo->last_meal_time.tv_usec = 0;
+	gettimeofday(&philo->last_meal_time, NULL);
 	while (check_last_meal_time(philo) && check_times_eaten(philo))
 	{
 		take_forks_and_eat(philo);

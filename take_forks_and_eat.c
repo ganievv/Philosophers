@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:19:21 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 20:34:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/20 15:58:45 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int id, struct timeval *start_time)
 	pthread_mutex_lock(print_mutex);
 	gettimeofday(&current_time, NULL);
 	printf("%ld %d has taken a fork\n",
-		(current_time.tv_sec - start_time->tv_sec) * 1000
-		+ (current_time.tv_usec - start_time->tv_usec) / 1000,
+		((current_time.tv_sec * 1000000 + current_time.tv_usec)
+			- (start_time->tv_sec * 1000000 + start_time->tv_usec))
+		/ 1000,
 		id + 1);
 	pthread_mutex_unlock(print_mutex);
 }
@@ -35,8 +36,9 @@ struct timeval *start_time, int time_to_eat)
 	pthread_mutex_lock(print_mutex);
 	gettimeofday(&current_time, NULL);
 	printf("%ld %d is eating\n",
-		(current_time.tv_sec - start_time->tv_sec) * 1000
-		+ (current_time.tv_usec - start_time->tv_usec) / 1000,
+		((current_time.tv_sec * 1000000 + current_time.tv_usec)
+			- (start_time->tv_sec * 1000000 + start_time->tv_usec))
+		/ 1000,
 		id + 1);
 	ft_usleep(time_to_eat);
 	pthread_mutex_unlock(print_mutex);
