@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 14:36:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:14:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,18 @@ static int	philo_and_fork_init(t_program *data)
 	return (0);
 }
 
-static void	free_alloc_data(t_program *data)
+static void	free_alloc_data(t_program *data, int *err_flag)
 {
 	unsigned int	i;
 
+	i = -1;
+	while (++i < data->philo_num)
+	{
+		if (pthread_join(data->philos[i].th, NULL) != 0)
+			*err_flag = 1;
+	}
+	if (pthread_join(data->th_monitoring, NULL) != 0)
+		*err_flag = 1;
 	i = -1;
 	pthread_mutex_destroy(&data->print_mutex);
 	while (++i < data->philo_num)
@@ -93,12 +101,6 @@ int	launch_philos(t_program *data)
 			err_flag = 1;
 	}
 	verify_death(data);
-	i = -1;
-	while (++i < data->philo_num)
-	{
-		if (pthread_join(data->philos[i].th, NULL) != 0)
-			err_flag = 1;
-	}
-	free_alloc_data(data);
+	free_alloc_data(data, &err_flag);
 	return (err_flag);
 }
