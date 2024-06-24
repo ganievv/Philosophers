@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 18:38:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:45:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,20 @@ static void	forks_and_starttime_mutex_init(t_program *data)
 	pthread_mutex_init(&data->print_mutex, NULL);
 }
 
-static void	set_forks(t_program *data, int i)
+static void	set_fork(t_program *data, int i)
 {
-	int	right_fork_index;
+	int	left_fork_index;
 
-	if (i == 0)
-		right_fork_index = data->philo_num - 1;
-	else
-		right_fork_index = (i - 1 + data->philo_num) % data->philo_num;
-	data->philos[i].left_fork = &data->forks[i];
-	data->philos[i].right_fork = &data->forks[right_fork_index];
+	left_fork_index = (i + 1) % data->philo_num;
+	data->philos[i].right_fork = &data->forks[i];
+	data->philos[i].left_fork = &data->forks[left_fork_index];
 }
 
 static int	philo_and_fork_init(t_program *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->philos)
 		return (1);
@@ -52,13 +49,12 @@ static int	philo_and_fork_init(t_program *data)
 	forks_and_starttime_mutex_init(data);
 	data->stop_flag = 0;
 	data->is_ready = 0;
-	while (i < data->philo_num)
+	while (++i < data->philo_num)
 	{
 		data->philos[i].id = i;
 		data->philos[i].times_eaten = 0;
 		data->philos[i].prog_data = data;
-		set_forks(data, i);
-		i++;
+		set_fork(data, i);
 	}
 	return (0);
 }
