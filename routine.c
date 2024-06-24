@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 18:41:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:57:38 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 static void	take_forks_and_eat(t_philo *philo)
 {
-	if ((philo->id + 1) % 2 != 0)
+	if (philo->id % 2 == 0)
 	{
 		take_fork(philo->left_fork, philo);
 		take_fork(philo->right_fork, philo);
