@@ -1,7 +1,7 @@
-plan.txt
-test.c
 Dockerfile
 start.sh
 .vscode
 philo
+test.c
 *.o
+*.txt
