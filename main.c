@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 18:40:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 19:18:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	is_num(char **argv, int argc)
 	int	i;
 	int	y;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		y = 0;
 		while (argv[i][y])
@@ -28,7 +28,6 @@ static int	is_num(char **argv, int argc)
 			else
 				return (0);
 		}
-		i++;
 	}
 	return (1);
 }
@@ -55,7 +54,7 @@ static void	prog_data_init(char **argv, int argc, t_program *data)
 	data->time_to_eat = (unsigned long)ft_atoi(argv[3]) * 1000;
 	data->time_to_sleep = (unsigned long)ft_atoi(argv[4]) * 1000;
 	if (argc == 6)
-		data->each_philo_must_eat_num = (unsigned int)ft_atoi(argv[5]);
+		data->each_philo_must_eat_num = ft_atoi(argv[5]);
 	else
 		data->each_philo_must_eat_num = -1;
 }
