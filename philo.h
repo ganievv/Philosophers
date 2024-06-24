@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 13:16:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:26:02 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_program
 	unsigned long	time_to_sleep;
 	int				each_philo_must_eat_num;
 	int				stop_flag;
+	unsigned int	is_ready;
 }	t_program;
 
 struct s_philo

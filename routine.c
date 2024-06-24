@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 13:26:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:27:26 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,26 @@ static int	check_times_eaten(t_philo *philo)
 		return (0);
 }
 
+static void	synchronize_philos(t_philo *philo)
+{
+	t_program	*prog_data;
+
+	prog_data = philo->prog_data;
+	if ((unsigned int)philo->id == prog_data->philo_num - 1)
+	{
+		gettimeofday(&prog_data->start_time, NULL);
+		prog_data->is_ready = 1;
+	}
+	while (!prog_data->is_ready)
+		;
+}
+
 void	*routine(void *data)
 {
 	t_philo			*philo;
 
 	philo = (t_philo *)data;
+	synchronize_philos(philo);
 	gettimeofday(&philo->last_meal_time, NULL);
 	while (!philo->prog_data->stop_flag && check_times_eaten(philo))
 	{

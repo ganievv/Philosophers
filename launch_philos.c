@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 13:15:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 14:36:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static int	philo_and_fork_init(t_program *data)
 	}
 	forks_and_starttime_mutex_init(data);
 	data->stop_flag = 0;
+	data->is_ready = 0;
 	while (i < data->philo_num)
 	{
 		data->philos[i].id = i;
@@ -85,7 +86,6 @@ int	launch_philos(t_program *data)
 	err_flag = 0;
 	if (philo_and_fork_init(data))
 		return (1);
-	gettimeofday(&data->start_time, NULL);
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
 		if (pthread_create(&data->philos[i].th, NULL,
