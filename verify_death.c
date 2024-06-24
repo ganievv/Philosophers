@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 15:08:59 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 17:14:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	*verify_death(void *data)
 					+ prog_data->philos[i].last_meal_time.tv_usec);
 			if (elapsed >= prog_data->time_to_die)
 			{
-				prog_data->stop_flag = 1;
 				print_message(&prog_data->philos[i], "died");
+				prog_data->stop_flag = 1;
+				return (NULL);
 			}
 		}
+		usleep(100);
 	}
 	return (NULL);
 }
