@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 15:15:37 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 18:37:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_program
 	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
 	pthread_t		th_monitoring;
-	unsigned int	philo_num;
+	int				philo_num;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
