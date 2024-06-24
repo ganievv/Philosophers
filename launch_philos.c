@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/20 16:22:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:15:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	set_forks(t_program *data, int i)
 	if (i == 0)
 		right_fork_index = data->philo_num - 1;
 	else
-		right_fork_index = i - 1;
+		right_fork_index = (i - 1 + data->philo_num) % data->philo_num;
 	data->philos[i].left_fork = &data->forks[i];
 	data->philos[i].right_fork = &data->forks[right_fork_index];
 }
@@ -92,6 +92,7 @@ int	launch_philos(t_program *data)
 				&routine, &data->philos[i]) != 0)
 			err_flag = 1;
 	}
+	verify_death(data);
 	i = -1;
 	while (++i < data->philo_num)
 	{
