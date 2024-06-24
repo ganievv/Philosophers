@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 15:16:24 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 18:41:42 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	synchronize_philos(t_philo *philo)
 	t_program	*prog_data;
 
 	prog_data = philo->prog_data;
-	if ((unsigned int)philo->id == prog_data->philo_num - 1)
+	if (philo->id == prog_data->philo_num - 1)
 	{
 		gettimeofday(&prog_data->start_time, NULL);
 		prog_data->is_ready = 1;
