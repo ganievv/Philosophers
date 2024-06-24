@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 20:04:10 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 20:06:23 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_times_eaten(t_philo *philo)
 {
 	if (philo->prog_data->each_philo_must_eat_num == -1)
 		return (1);
-	if (philo->times_eaten < philo->prog_data->each_philo_must_eat_num)
+	if (philo->times_eaten >= philo->prog_data->each_philo_must_eat_num)
 		return (1);
 	else
 		return (0);
