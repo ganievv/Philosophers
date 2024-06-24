@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/19 18:09:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 18:40:16 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	is_correct_num(char **nums, int size)
 
 static void	prog_data_init(char **argv, int argc, t_program *data)
 {
-	data->philo_num = (unsigned int)ft_atoi(argv[1]);
+	data->philo_num = ft_atoi(argv[1]);
 	data->time_to_die = (unsigned long)ft_atoi(argv[2]) * 1000;
 	data->time_to_eat = (unsigned long)ft_atoi(argv[3]) * 1000;
 	data->time_to_sleep = (unsigned long)ft_atoi(argv[4]) * 1000;

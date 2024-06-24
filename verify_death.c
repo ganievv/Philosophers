@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 17:14:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 18:38:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*verify_death(void *data)
 	t_program			*prog_data;
 	struct timeval		current_time;
 	unsigned long long	elapsed;
-	unsigned int		i;
+	int					i;
 
 	prog_data = (t_program *)data;
 	while (!prog_data->stop_flag)
