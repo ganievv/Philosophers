@@ -1,2 +1,7 @@
 plan.txt
 test.c
+Dockerfile
+start.sh
+.vscode
+philo
+*.o
