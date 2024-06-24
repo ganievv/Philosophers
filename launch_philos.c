@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 15:14:02 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:53:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	launch_philos(t_program *data)
 				&routine, &data->philos[i]) != 0)
 			err_flag = 1;
 	}
-	verify_death(data);
 	free_alloc_data(data, &err_flag);
 	return (err_flag);
 }
