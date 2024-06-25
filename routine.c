@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/25 17:13:51 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:45:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,41 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 	print_message(philo, "has taken a fork");
 }
 
+static void	mutex_unlocking(t_philo *philo, int is_order_left)
+{
+	if (is_order_left)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+}
+
 static void	take_forks_and_eat(t_philo *philo)
 {
+	int	is_order_left;
+
 	if (philo->id % 2 == 0)
 	{
 		take_fork(philo->left_fork, philo);
 		take_fork(philo->right_fork, philo);
+		is_order_left = 1;
 	}
 	else
 	{
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
+		is_order_left = 0;
 	}
 	print_message(philo, "is eating");
 	gettimeofday(&philo->last_meal_time, NULL);
 	ft_usleep(philo->prog_data->time_to_eat);
 	philo->times_eaten++;
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	mutex_unlocking(philo, is_order_left);
 }
 
 static int	synchronize_philos(t_philo *philo)
