@@ -6,11 +6,19 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 20:16:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 16:56:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+// what should be first in these lines ???
+// gettimeofday(&philo->last_meal_time, NULL);
+// or ft_usleep(philo->prog_data->time_to_eat);
+
+// maybe the problem is in your ft_usleep ???
+
+// what should I unlock first and second ?
 
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
@@ -31,8 +39,8 @@ static void	take_forks_and_eat(t_philo *philo)
 		take_fork(philo->left_fork, philo);
 	}
 	print_message(philo, "is eating");
-	ft_usleep(philo->prog_data->time_to_eat);
 	gettimeofday(&philo->last_meal_time, NULL);
+	ft_usleep(philo->prog_data->time_to_eat);
 	philo->times_eaten++;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -66,6 +74,7 @@ static int	synchronize_philos(t_philo *philo)
 	}
 	while (!prog_data->is_ready)
 		;
+	gettimeofday(&philo->last_meal_time, NULL);
 	return (1);
 }
 
@@ -76,7 +85,6 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	if (!synchronize_philos(philo))
 		return (NULL);
-	gettimeofday(&philo->last_meal_time, NULL);
 	while (!philo->prog_data->stop_flag && check_times_eaten(philo))
 	{
 		take_forks_and_eat(philo);
