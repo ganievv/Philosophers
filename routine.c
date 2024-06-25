@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/25 17:10:13 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:13:51 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,6 @@ static void	take_forks_and_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->right_fork);
 }
 
-static int	check_times_eaten(t_philo *philo)
-{
-	if (philo->prog_data->each_philo_must_eat_num == -1)
-		return (1);
-	if (philo->times_eaten < philo->prog_data->each_philo_must_eat_num)
-		return (1);
-	else
-		return (0);
-}
-
 static int	synchronize_philos(t_philo *philo)
 {
 	t_program	*prog_data;
@@ -85,7 +75,7 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	if (!synchronize_philos(philo))
 		return (NULL);
-	while (!philo->prog_data->stop_flag && check_times_eaten(philo))
+	while (!philo->prog_data->stop_flag)
 	{
 		take_forks_and_eat(philo);
 		print_message(philo, "is sleeping");
