@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/25 16:56:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:10:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	synchronize_philos(t_philo *philo)
 		gettimeofday(&prog_data->start_time, NULL);
 		prog_data->is_ready = 1;
 		if (pthread_create(&prog_data->th_monitoring, NULL,
-				verify_death, prog_data) != 0)
+				monitoring, prog_data) != 0)
 		{
 			philo->prog_data->stop_flag = 1;
 			return (0);

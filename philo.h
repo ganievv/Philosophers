@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 18:37:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:10:05 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int		launch_philos(t_program *data);
 void	*routine(void *data);
 void	ft_usleep(useconds_t usec);
 void	print_message(t_philo *philo, char *message);
-void	*verify_death(void *data);
+void	*monitoring(void *data);
 
 #endif

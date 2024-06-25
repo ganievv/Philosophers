@@ -6,14 +6,14 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 18:28:31 by sganiev           #+#    #+#              #
-#    Updated: 2024/06/24 13:19:22 by sganiev          ###   ########.fr        #
+#    Updated: 2024/06/25 17:10:40 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC = main.c ft_itoa.c launch_philos.c routine.c ft_usleep.c print_message.c \
-verify_death.c \
+monitoring.c \
 
 CC = gcc
 

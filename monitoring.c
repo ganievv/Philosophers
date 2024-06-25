@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verify_death.c                                     :+:      :+:    :+:   */
+/*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/24 18:38:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/25 17:09:58 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*verify_death(void *data)
+// Maybe when you check last_meal_time it is not already
+// appropriate value and because of that philos are dying 
+
+void	*monitoring(void *data)
 {
 	t_program			*prog_data;
 	struct timeval		current_time;
@@ -36,7 +39,7 @@ void	*verify_death(void *data)
 				return (NULL);
 			}
 		}
-		usleep(100);
+		ft_usleep(10);
 	}
 	return (NULL);
 }
