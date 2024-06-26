@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/25 17:45:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 10:11:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 	print_message(philo, "has taken a fork");
 }
 
-static void	mutex_unlocking(t_philo *philo, int is_order_left)
+static void	forks_unlocking(t_philo *philo, int is_order_left)
 {
 	if (is_order_left)
 	{
@@ -57,10 +57,10 @@ static void	take_forks_and_eat(t_philo *philo)
 		is_order_left = 0;
 	}
 	print_message(philo, "is eating");
-	gettimeofday(&philo->last_meal_time, NULL);
-	ft_usleep(philo->prog_data->time_to_eat);
+	philo->last_meal_time = take_time(MICROSECONDS);
 	philo->times_eaten++;
-	mutex_unlocking(philo, is_order_left);
+	ft_usleep(philo->prog_data->time_to_eat);
+	forks_unlocking(philo, is_order_left);
 }
 
 static int	synchronize_philos(t_philo *philo)
@@ -70,7 +70,7 @@ static int	synchronize_philos(t_philo *philo)
 	prog_data = philo->prog_data;
 	if (philo->id == prog_data->philo_num - 1)
 	{
-		gettimeofday(&prog_data->start_time, NULL);
+		prog_data->start_time = take_time(MILLISECONDS);
 		prog_data->is_ready = 1;
 		if (pthread_create(&prog_data->th_monitoring, NULL,
 				monitoring, prog_data) != 0)
@@ -81,7 +81,7 @@ static int	synchronize_philos(t_philo *philo)
 	}
 	while (!prog_data->is_ready)
 		;
-	gettimeofday(&philo->last_meal_time, NULL);
+	philo->last_meal_time = take_time(MICROSECONDS);
 	return (1);
 }
 

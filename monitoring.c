@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/25 17:34:06 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 10:26:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,9 @@ static int	check_times_eaten(int each_philo_must_eat_num, int times_eaten,
 
 static int	is_dead(t_philo *philos, int index)
 {
-	struct timeval		current_time;
 	unsigned long long	elapsed;
 
-	gettimeofday(&current_time, NULL);
-	elapsed = (current_time.tv_sec * 1000000 + current_time.tv_usec)
-		- (philos[index].last_meal_time.tv_sec * 1000000
-			+ philos[index].last_meal_time.tv_usec);
+	elapsed = take_time(MICROSECONDS) - philos[index].last_meal_time;
 	if (elapsed >= philos->prog_data->time_to_die)
 	{
 		print_message(&philos[index], "died");
