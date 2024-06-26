@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 10:11:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:31:21 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 // maybe the problem is in your ft_usleep ???
 
 // what should I unlock first and second ?
+
+// what if each_philo_must_eat == 0 ???
+// what if philo_num == 1 ???
+
+// if variable has only 0 or 1 than it is better to use bool type
+
+// you should protect shared variables with mutexes even
+// if it is only for reading
 
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
@@ -59,7 +67,7 @@ static void	take_forks_and_eat(t_philo *philo)
 	print_message(philo, "is eating");
 	philo->last_meal_time = take_time(MICROSECONDS);
 	philo->times_eaten++;
-	ft_usleep(philo->prog_data->time_to_eat);
+	ft_usleep(philo->prog_data->time_to_eat_us);
 	forks_unlocking(philo, is_order_left);
 }
 
@@ -96,7 +104,7 @@ void	*routine(void *data)
 	{
 		take_forks_and_eat(philo);
 		print_message(philo, "is sleeping");
-		ft_usleep(philo->prog_data->time_to_sleep);
+		ft_usleep(philo->prog_data->time_to_sleep_us);
 		print_message(philo, "is thinking");
 	}
 	return (NULL);

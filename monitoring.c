@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 10:26:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:03:06 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // appropriate value and because of that philos are dying 
 
 static int	check_times_eaten(int each_philo_must_eat_num, int times_eaten,
-	int *stop_flag)
+	bool *stop_flag)
 {
 	if (each_philo_must_eat_num == -1)
 		return (1);
@@ -34,7 +34,7 @@ static int	is_dead(t_philo *philos, int index)
 	unsigned long long	elapsed;
 
 	elapsed = take_time(MICROSECONDS) - philos[index].last_meal_time;
-	if (elapsed >= philos->prog_data->time_to_die)
+	if (elapsed >= (unsigned long long)philos->prog_data->time_to_die_us)
 	{
 		print_message(&philos[index], "died");
 		philos->prog_data->stop_flag = 1;

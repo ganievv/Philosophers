@@ -6,17 +6,17 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 10:27:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 15:58:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	number;
-	int	i;
-	int	minus;
+	long	number;
+	int		i;
+	int		minus;
 
 	i = 0;
 	minus = 1;

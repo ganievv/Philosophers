@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 10:07:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/26 16:33:43 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <semaphore.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <limits.h>
 
 # define MILLISECONDS 1
 # define MICROSECONDS 2
@@ -34,13 +35,13 @@ typedef struct s_program
 	pthread_mutex_t		print_mutex;
 	pthread_t			th_monitoring;
 	unsigned long long	start_time;
-	int					philo_num;
-	unsigned long		time_to_die;
-	unsigned long		time_to_eat;
-	unsigned long		time_to_sleep;
-	int					each_philo_must_eat_num;
-	int					stop_flag;
-	unsigned int		is_ready;
+	long				philo_num;
+	long				time_to_die_us;
+	long				time_to_eat_us;
+	long				time_to_sleep_us;
+	long				each_philo_must_eat_num;
+	bool				stop_flag;
+	bool				is_ready;
 }	t_program;
 
 struct s_philo
@@ -54,7 +55,7 @@ struct s_philo
 	unsigned long long	last_meal_time;
 };
 
-int					ft_atoi(const char *str);
+long				ft_atol(const char *str);
 int					launch_philos(t_program *data);
 void				*routine(void *data);
 void				ft_usleep(useconds_t usec);
