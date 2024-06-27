@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 10:30:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:29:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static void	mutexes_init(t_program *data)
 
 	i = -1;
 	while (++i < data->philo_num)
+	{
 		pthread_mutex_init(&data->forks[i], NULL);
+		pthread_mutex_init(&data->philos[i].philo_mutex, NULL);
+	}
+	pthread_mutex_init(&data->prog_data_mutex, NULL);
 	pthread_mutex_init(&data->print_mutex, NULL);
 }
 
@@ -64,17 +68,21 @@ static void	free_alloc_data(t_program *data, int *err_flag)
 	int	i;
 
 	i = -1;
+	if (pthread_join(data->th_monitoring, NULL) != 0)
+		*err_flag = 1;
 	while (++i < data->philo_num)
 	{
 		if (pthread_join(data->philos[i].th, NULL) != 0)
 			*err_flag = 1;
 	}
-	if (pthread_join(data->th_monitoring, NULL) != 0)
-		*err_flag = 1;
 	i = -1;
+	pthread_mutex_destroy(&data->prog_data_mutex);
 	pthread_mutex_destroy(&data->print_mutex);
 	while (++i < data->philo_num)
+	{
 		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i].philo_mutex);
+	}
 	if (data->philos)
 		free(data->philos);
 	if (data->forks)
@@ -93,9 +101,10 @@ int	launch_philos(t_program *data)
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
 		if (pthread_create(&data->philos[i].th, NULL,
-				&routine, &data->philos[i]) != 0)
+				routine, &data->philos[i]) != 0)
 			err_flag = 1;
 	}
+	activate_threads_and_monitor(data, &err_flag);
 	free_alloc_data(data, &err_flag);
 	return (err_flag);
 }
