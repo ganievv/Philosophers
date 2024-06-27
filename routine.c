@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 16:31:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:36:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 // you should protect shared variables with mutexes even
 // if it is only for reading
 
+//you should add to each philo time to sleep and eat variables
+
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
 	pthread_mutex_lock(fork);
@@ -48,7 +50,7 @@ static void	forks_unlocking(t_philo *philo, int is_order_left)
 	}
 }
 
-static void	take_forks_and_eat(t_philo *philo)
+static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 {
 	int	is_order_left;
 
@@ -65,9 +67,12 @@ static void	take_forks_and_eat(t_philo *philo)
 		is_order_left = 0;
 	}
 	print_message(philo, "is eating");
-	philo->last_meal_time = take_time(MICROSECONDS);
-	philo->times_eaten++;
-	ft_usleep(philo->prog_data->time_to_eat_us);
+	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
+		&philo->last_meal_time);
+	set_long_var(&philo->philo_mutex,
+		get_long_var(&philo->philo_mutex, &philo->times_eaten) + 1,
+		&philo->times_eaten);
+	ft_usleep(time_to_eat_us);
 	forks_unlocking(philo, is_order_left);
 }
 
@@ -76,35 +81,33 @@ static int	synchronize_philos(t_philo *philo)
 	t_program	*prog_data;
 
 	prog_data = philo->prog_data;
-	if (philo->id == prog_data->philo_num - 1)
-	{
-		prog_data->start_time = take_time(MILLISECONDS);
-		prog_data->is_ready = 1;
-		if (pthread_create(&prog_data->th_monitoring, NULL,
-				monitoring, prog_data) != 0)
-		{
-			philo->prog_data->stop_flag = 1;
-			return (0);
-		}
-	}
-	while (!prog_data->is_ready)
+	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->is_ready))
 		;
-	philo->last_meal_time = take_time(MICROSECONDS);
+	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
+		&philo->last_meal_time);
 	return (1);
 }
 
 void	*routine(void *data)
 {
-	t_philo			*philo;
+	t_philo		*philo;
+	t_program	*prog_data;
+	long		time_to_sleep_us;
+	long		time_to_eat_us;
 
 	philo = (t_philo *)data;
+	prog_data = philo->prog_data;
+	time_to_sleep_us = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->time_to_sleep_us);
+	time_to_eat_us = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->time_to_eat_us);
 	if (!synchronize_philos(philo))
 		return (NULL);
-	while (!philo->prog_data->stop_flag)
+	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
-		take_forks_and_eat(philo);
+		take_forks_and_eat(philo, time_to_eat_us);
 		print_message(philo, "is sleeping");
-		ft_usleep(philo->prog_data->time_to_sleep_us);
+		ft_usleep(time_to_sleep_us);
 		print_message(philo, "is thinking");
 	}
 	return (NULL);
