@@ -6,25 +6,26 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/26 16:56:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:16:19 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// you should add checking if numbers are not bigger than INT_MAX
-// because we have limit as INT_MAX then size of str with number should be <= 10
+// you should add checking if numbers are not bigger than INT_MAX (done)
+// because we have limit as INT_MAX then size of str with number ...
+// should be <= 10 (done)
 
-// timestamps should be bigger than 60 milliseconds(ms)
-// so you can change just not > 0 but > 60 is valid
+// timestamps should be bigger than 60 milliseconds(ms) (done)
+// so you can change just not > 0 but > 60 is valid (done)
 
-//he said that numbers like "      +77$%" should be also legit
+//he said that numbers like "      +77$%" should be also legit (done)
 
-// 1e3 == 1×10^3
-// 2.5e-4 == 2.5×10^(−4)
+// 1e3 == 1×10^3 (done)
+// 2.5e-4 == 2.5×10^(−4) (done)
 
 // it is easier to create 'error_exit' function instead of always return
-// value to the previous function and so on
+// value to the previous function and so on (but I can't use exit() function)
 
 // you should create handle of errors for mutexes, like that it will be easier
 // to find your mistake
