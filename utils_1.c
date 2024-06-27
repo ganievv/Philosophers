@@ -6,11 +6,17 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 08:49:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:44:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/* Should I use in print_message() this :
+* if (!get_bool_var(&philo->prog_data->prog_data_mutex,
+*			&philo->prog_data->stop_flag))
+*  ???
+*/
 
 long	ft_atol(const char *str)
 {
@@ -32,16 +38,16 @@ long	ft_atol(const char *str)
 	return (number * minus);
 }
 
-unsigned long long	take_time(int type)
+unsigned long long	take_time(t_time_units unit)
 {
 	unsigned long long	time;
 	struct timeval		clock;
 
 	if (gettimeofday(&clock, NULL) == -1)
 		return (0);
-	if (type == MILLISECONDS)
+	if (unit == MILLISECONDS)
 		time = clock.tv_sec * 1000 + clock.tv_usec / 1000;
-	else if (type == MICROSECONDS)
+	else if (unit == MICROSECONDS)
 		time = clock.tv_sec * 1000000 + clock.tv_usec;
 	else
 		return (0);
@@ -73,10 +79,7 @@ void	print_message(t_philo *philo, char *message)
 
 	pthread_mutex_lock(&philo->prog_data->print_mutex);
 	current_time = take_time(MILLISECONDS);
-	if (!philo->prog_data->stop_flag)
-	{
-		printf("%lld %d %s\n", (current_time - philo->prog_data->start_time),
-			philo->id + 1, message);
-	}
+	printf("%lld %d %s\n", (current_time - philo->prog_data->start_time),
+		philo->id + 1, message);
 	pthread_mutex_unlock(&philo->prog_data->print_mutex);
 }
