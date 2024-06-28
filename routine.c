@@ -6,29 +6,14 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:35:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:52:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// what should be first in these lines ???
-// gettimeofday(&philo->last_meal_time, NULL);
-// or ft_usleep(philo->prog_data->time_to_eat);
-
-// maybe the problem is in your ft_usleep ???
-
-// what should I unlock first and second ?
-
 // what if each_philo_must_eat == 0 ???
 // what if philo_num == 1 ???
-
-// if variable has only 0 or 1 than it is better to use bool type
-
-// you should protect shared variables with mutexes even
-// if it is only for reading
-
-//you should add to each philo time to sleep and eat variables
 
 // he added variable 'times_eaten' only for routine -> so you don't
 // need to protect this variable and in monitoring just check

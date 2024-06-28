@@ -6,17 +6,13 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:38:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:51:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/* Should I use in print_message() this :
-* if (!get_bool_var(&philo->prog_data->prog_data_mutex,
-*			&philo->prog_data->stop_flag))
-*  ???
-*/
+// maybe you should check if philo has eaten enough times in print_message
 
 long	ft_atol(const char *str)
 {

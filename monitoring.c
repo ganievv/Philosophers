@@ -6,14 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:24:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:53:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// Maybe when you check last_meal_time it is not already
-// appropriate value and because of that philos are dying 
 
 static int	check_times_eaten(t_philo *philo, long must_eat_num)
 {
