@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 10:22:36 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:20:47 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	prog_data = philo->prog_data;
 	synchronize_philos(philo, prog_data);
-	set_bool_var(&prog_data->prog_data_mutex, 1, &prog_data->monitor_start);
+	set_long_var(&prog_data->prog_data_mutex,
+		get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->active_threads_num) + 1,
+		&prog_data->active_threads_num);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		take_forks_and_eat(philo, philo->time_to_eat_us);

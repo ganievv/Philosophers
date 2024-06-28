@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 10:34:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:24:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	*monitoring(void *data)
 	int					i;
 
 	prog_data = (t_program *)data;
-	while (!get_bool_var(&prog_data->prog_data_mutex,
-			&prog_data->monitor_start))
+	while (get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->active_threads_num) != prog_data->philo_num)
 		;
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
