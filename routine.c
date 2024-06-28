@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:30:20 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:32:30 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,16 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 {
-	int	is_order_left;
 
 	if (philo->id % 2 == 0)
 	{
 		take_fork(philo->left_fork, philo);
 		take_fork(philo->right_fork, philo);
-		is_order_left = 1;
 	}
 	else
 	{
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
-		is_order_left = 0;
 	}
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
