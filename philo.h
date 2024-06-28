@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:02:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:31:15 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ struct s_philo
 long				ft_atol(const char *str);
 int					launch_philos(t_program *data);
 void				*routine(void *data);
-void				ft_usleep(useconds_t usec);
+void				ft_usleep(useconds_t usec, t_program *prog_data);
 void				print_message(t_philo *philo, char *message);
 void				*monitoring(void *data);
 unsigned long long	take_time(t_time_units type);

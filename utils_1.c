@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 16:44:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:32:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ unsigned long long	take_time(t_time_units unit)
 	return (time);
 }
 
-void	ft_usleep(useconds_t usec)
+void	ft_usleep(useconds_t usec, t_program *prog_data)
 {
 	unsigned long long	start;
 	unsigned long long	elapsed;
@@ -64,6 +64,8 @@ void	ft_usleep(useconds_t usec)
 	start = take_time(MICROSECONDS);
 	while (true)
 	{
+		if (get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
+			break ;
 		elapsed = take_time(MICROSECONDS) - start;
 		if (elapsed >= usec)
 			break ;

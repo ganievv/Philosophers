@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:18:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:30:38 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 	set_long_var(&philo->philo_mutex,
 		get_long_var(&philo->philo_mutex, &philo->times_eaten) + 1,
 		&philo->times_eaten);
-	ft_usleep(time_to_eat_us);
+	ft_usleep(time_to_eat_us, philo->prog_data);
 	forks_unlocking(philo, is_order_left);
 }
 
@@ -96,7 +96,7 @@ void	*routine(void *data)
 	{
 		take_forks_and_eat(philo, philo->time_to_eat_us);
 		print_message(philo, "is sleeping");
-		ft_usleep(philo->time_to_sleep_us);
+		ft_usleep(philo->time_to_sleep_us, prog_data);
 		print_message(philo, "is thinking");
 	}
 	return (NULL);
