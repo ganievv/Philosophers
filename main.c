@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 16:16:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:05:34 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 
 // you should create handle of errors for mutexes, like that it will be easier
 // to find your mistake
+
+//you should move from utils_2.c some functions to a new file
 
 static int	is_num(char **argv)
 {
@@ -66,6 +68,8 @@ static void	prog_data_init(char **argv, int argc, t_program *data)
 		data->each_philo_must_eat_num = ft_atol(argv[5]);
 	else
 		data->each_philo_must_eat_num = -1;
+	data->stop_flag = 0;
+	data->is_ready = 0;
 }
 
 static int	is_correct_num(t_program *data, int argc)
