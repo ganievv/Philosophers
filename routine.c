@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:30:38 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 10:22:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 // if it is only for reading
 
 //you should add to each philo time to sleep and eat variables
+
+// he added variable 'times_eaten' only for routine -> so you don't
+// need to protect this variable and in monitoring just check
+// variable 'is_full' which you can set in routine
 
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
@@ -66,12 +70,12 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->left_fork, philo);
 		is_order_left = 0;
 	}
-	print_message(philo, "is eating");
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
 	set_long_var(&philo->philo_mutex,
 		get_long_var(&philo->philo_mutex, &philo->times_eaten) + 1,
 		&philo->times_eaten);
+	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us, philo->prog_data);
 	forks_unlocking(philo, is_order_left);
 }
@@ -92,6 +96,7 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	prog_data = philo->prog_data;
 	synchronize_philos(philo, prog_data);
+	set_bool_var(&prog_data->prog_data_mutex, 1, &prog_data->monitor_start);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		take_forks_and_eat(philo, philo->time_to_eat_us);

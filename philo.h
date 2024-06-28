@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:31:15 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 10:21:13 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_program
 	long				each_philo_must_eat_num;
 	bool				stop_flag;
 	bool				is_ready;
+	bool				monitor_start;
 }	t_program;
 
 struct s_philo

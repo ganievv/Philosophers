@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:05:34 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 10:21:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	prog_data_init(char **argv, int argc, t_program *data)
 		data->each_philo_must_eat_num = -1;
 	data->stop_flag = 0;
 	data->is_ready = 0;
+	data->monitor_start = 0;
 }
 
 static int	is_correct_num(t_program *data, int argc)

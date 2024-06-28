@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:14:42 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 10:34:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static int	check_times_eaten(t_philo *philo, long must_eat_num)
 
 static int	is_dead(t_philo *philo, long time_to_die_us)
 {
-	unsigned long long	elapsed;
-	t_program			*prog_data;
+	long		elapsed;
+	t_program	*prog_data;
 
 	prog_data = philo->prog_data;
-	elapsed = take_time(MICROSECONDS)
+	elapsed = take_time(MILLISECONDS)
 		- get_ullong_var(&philo->philo_mutex,
 			&philo->last_meal_time);
-	if (elapsed >= (unsigned long long)time_to_die_us)
+	if (elapsed >= time_to_die_us / 1000)
 	{
 		print_message(philo, "died");
 		set_bool_var(&prog_data->prog_data_mutex,
@@ -54,6 +54,9 @@ void	*monitoring(void *data)
 	int					i;
 
 	prog_data = (t_program *)data;
+	while (!get_bool_var(&prog_data->prog_data_mutex,
+			&prog_data->monitor_start))
+		;
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		i = -1;
