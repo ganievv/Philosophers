@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:20:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:30:20 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,6 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 	print_message(philo, "has taken a fork");
 }
 
-static void	forks_unlocking(t_philo *philo, int is_order_left)
-{
-	if (is_order_left)
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
-}
-
 static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 {
 	int	is_order_left;
@@ -77,7 +63,8 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		&philo->times_eaten);
 	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us, philo->prog_data);
-	forks_unlocking(philo, is_order_left);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 static void	synchronize_philos(t_philo *philo, t_program *prog_data)
