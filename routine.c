@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:32:30 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 14:35:21 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 {
-
 	if (philo->id % 2 == 0)
 	{
 		take_fork(philo->left_fork, philo);
@@ -53,11 +52,11 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
 	}
-	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
-		&philo->last_meal_time);
 	set_long_var(&philo->philo_mutex,
 		get_long_var(&philo->philo_mutex, &philo->times_eaten) + 1,
 		&philo->times_eaten);
+	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
+		&philo->last_meal_time);
 	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us, philo->prog_data);
 	pthread_mutex_unlock(philo->left_fork);
