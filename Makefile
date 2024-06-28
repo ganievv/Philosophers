@@ -6,13 +6,14 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 18:28:31 by sganiev           #+#    #+#              #
-#    Updated: 2024/06/27 08:52:10 by sganiev          ###   ########.fr        #
+#    Updated: 2024/06/28 12:16:50 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = main.c utils_1.c utils_2.c launch_philos.c routine.c monitoring.c
+SRC = main.c utils_1.c launch_philos.c routine.c monitoring.c activate_th_monitor.c \
+getters.c setters.c \
 
 CC = gcc
 
