@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 16:36:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:18:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,38 +76,27 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 	forks_unlocking(philo, is_order_left);
 }
 
-static int	synchronize_philos(t_philo *philo)
+static void	synchronize_philos(t_philo *philo, t_program *prog_data)
 {
-	t_program	*prog_data;
-
-	prog_data = philo->prog_data;
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->is_ready))
 		;
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
-	return (1);
 }
 
 void	*routine(void *data)
 {
 	t_philo		*philo;
 	t_program	*prog_data;
-	long		time_to_sleep_us;
-	long		time_to_eat_us;
 
 	philo = (t_philo *)data;
 	prog_data = philo->prog_data;
-	time_to_sleep_us = get_long_var(&prog_data->prog_data_mutex,
-			&prog_data->time_to_sleep_us);
-	time_to_eat_us = get_long_var(&prog_data->prog_data_mutex,
-			&prog_data->time_to_eat_us);
-	if (!synchronize_philos(philo))
-		return (NULL);
+	synchronize_philos(philo, prog_data);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
-		take_forks_and_eat(philo, time_to_eat_us);
+		take_forks_and_eat(philo, philo->time_to_eat_us);
 		print_message(philo, "is sleeping");
-		ft_usleep(time_to_sleep_us);
+		ft_usleep(philo->time_to_sleep_us);
 		print_message(philo, "is thinking");
 	}
 	return (NULL);

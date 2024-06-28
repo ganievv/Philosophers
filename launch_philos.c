@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 16:29:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:05:14 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static int	philo_and_fork_init(t_program *data)
 		return (1);
 	}
 	mutexes_init(data);
-	data->stop_flag = 0;
-	data->is_ready = 0;
 	while (++i < data->philo_num)
 	{
 		data->philos[i].id = i;
 		data->philos[i].times_eaten = 0;
 		data->philos[i].prog_data = data;
+		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
+		data->philos[i].time_to_eat_us = data->time_to_eat_us;
 		set_fork(data, i);
 	}
 	return (0);

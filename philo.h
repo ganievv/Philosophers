@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/27 16:57:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/28 09:02:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ struct s_philo
 	pthread_mutex_t		philo_mutex;
 	int					id;
 	long				times_eaten;
+	long				time_to_sleep_us;
+	long				time_to_eat_us;
 	unsigned long long	last_meal_time;
 };
 
