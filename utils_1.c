@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 15:09:05 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 09:51:25 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,11 @@ void	print_message(t_philo *philo, char *message)
 			philo->id + 1, message);
 	}
 	pthread_mutex_unlock(&philo->prog_data->print_mutex);
+}
+
+void	increment_long(pthread_mutex_t *mutex, long *var)
+{
+	pthread_mutex_lock(mutex);
+	(*var)++;
+	pthread_mutex_unlock(mutex);
 }

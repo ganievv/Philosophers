@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:52:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 09:49:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
 	}
-	set_long_var(&philo->philo_mutex,
-		get_long_var(&philo->philo_mutex, &philo->times_eaten) + 1,
-		&philo->times_eaten);
+	increment_long(&philo->philo_mutex, &philo->times_eaten);
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
 	print_message(philo, "is eating");
@@ -64,10 +62,7 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	prog_data = philo->prog_data;
 	synchronize_philos(philo, prog_data);
-	set_long_var(&prog_data->prog_data_mutex,
-		get_long_var(&prog_data->prog_data_mutex,
-			&prog_data->active_threads_num) + 1,
-		&prog_data->active_threads_num);
+	increment_long(&prog_data->prog_data_mutex, &prog_data->active_threads_num);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		take_forks_and_eat(philo, philo->time_to_eat_us);
