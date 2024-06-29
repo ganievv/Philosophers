@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 11:15:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:58:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,15 @@ int	launch_philos(t_program *data)
 
 	i = -1;
 	err_flag = 0;
+	if (data->each_philo_must_eat_num == 0)
+		return (0);
+	if (data->philo_num == 1)
+	{
+		printf("0 1 has taken a fork\n");
+		ft_usleep(data->time_to_die_us);
+		printf("%ld 1 died\n", data->time_to_die_us / 1000);
+		return (0);
+	}
 	if (philo_and_fork_init(data))
 		return (1);
 	while ((err_flag != 1) && (++i < data->philo_num))

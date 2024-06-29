@@ -6,13 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 10:50:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:44:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// maybe you should check if philo has eaten enough times in print_message
 
 long	ft_atol(const char *str)
 {

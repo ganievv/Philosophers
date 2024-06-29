@@ -6,18 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 12:29:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:59:21 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// what if each_philo_must_eat == 0 ???
-// what if philo_num == 1 ???
-
-// he added variable 'times_eaten' only for routine -> so you don't
-// need to protect this variable and in monitoring just check
-// variable 'is_full' which you can set in routine
 
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
