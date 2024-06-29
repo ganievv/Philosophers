@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 11:14:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:25:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ struct s_philo
 	long				time_to_sleep_us;
 	long				time_to_eat_us;
 	unsigned long long	last_meal_time;
+	unsigned long long	prev_meal_time;
 	bool				is_full;
 };
 
