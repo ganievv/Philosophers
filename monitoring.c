@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 14:53:08 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 10:39:28 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,38 @@ static int	is_dead(t_philo *philo, long time_to_die_us)
 	return (0);
 }
 
+static void	init_monitor_vars(t_program *prog_data, long *philo_num,
+	long *time_to_die, long *must_eat)
+{
+	*philo_num = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->philo_num);
+	*time_to_die = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->time_to_die_us);
+	*must_eat = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->each_philo_must_eat_num);
+}
+
 void	*monitoring(void *data)
 {
 	t_program			*prog_data;
 	int					i;
+	long				philo_num;
+	long				time_to_die;
+	long				must_eat;
 
 	prog_data = (t_program *)data;
+	init_monitor_vars(prog_data, &philo_num, &time_to_die, &must_eat);
 	while (get_long_var(&prog_data->prog_data_mutex,
-			&prog_data->active_threads_num) != prog_data->philo_num)
+			&prog_data->active_threads_num) != philo_num)
 		;
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		i = -1;
-		while (++i < prog_data->philo_num)
+		while (++i < philo_num)
 		{
-			if (is_dead(&prog_data->philos[i], prog_data->time_to_die_us))
+			if (is_dead(&prog_data->philos[i], time_to_die))
 				break ;
-			if (!check_times_eaten(&prog_data->philos[i],
-					prog_data->each_philo_must_eat_num))
+			if (!check_times_eaten(&prog_data->philos[i], must_eat))
 				break ;
 		}
 	}
