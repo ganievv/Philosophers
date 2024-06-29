@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 12:28:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:21:11 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	is_dead(t_philo *philo, long time_to_die_us)
 	t_program	*prog_data;
 
 	prog_data = philo->prog_data;
-	elapsed = get_ullong_var(&philo->philo_mutex, &philo->prev_meal_time)
+	elapsed = take_time(MILLISECONDS)
 		- get_ullong_var(&philo->philo_mutex,
 			&philo->last_meal_time);
 	if (elapsed >= time_to_die_us / 1000)

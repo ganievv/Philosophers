@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 12:59:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:20:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
 	}
-	set_ullong_var(&philo->philo_mutex,
-		get_ullong_var(&philo->philo_mutex, &philo->last_meal_time),
-		&philo->prev_meal_time);
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
 	print_message(philo, "is eating");
@@ -48,9 +45,6 @@ static void	synchronize_philos(t_philo *philo, t_program *prog_data)
 		;
 	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
-	set_ullong_var(&philo->philo_mutex,
-		get_ullong_var(&philo->philo_mutex, &philo->last_meal_time),
-		&philo->prev_meal_time);
 }
 
 void	*routine(void *data)
