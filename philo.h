@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 09:53:19 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 10:50:14 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ struct s_philo
 };
 
 long				ft_atol(const char *str);
-void				ft_usleep(useconds_t usec, t_program *prog_data);
+void				ft_usleep(useconds_t usec);
 void				print_message(t_philo *philo, char *message);
 unsigned long long	take_time(t_time_units type);
 
