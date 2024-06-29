@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 09:05:14 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 11:15:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	philo_and_fork_init(t_program *data)
 		data->philos[i].prog_data = data;
 		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
 		data->philos[i].time_to_eat_us = data->time_to_eat_us;
+		data->philos[i].is_full = false;
 		set_fork(data, i);
 	}
 	return (0);

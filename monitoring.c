@@ -6,24 +6,32 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 10:39:28 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:23:10 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_times_eaten(t_philo *philo, long must_eat_num)
+static int	check_times_eaten(t_philo *philo, long must_eat_num, long philo_num)
 {
+	static int	full_philos_num = 0;
+
 	if (must_eat_num == -1)
 		return (1);
-	if (get_long_var(&philo->philo_mutex, &philo->times_eaten) < must_eat_num)
+	if (get_bool_var(&philo->philo_mutex, &philo->is_full) == true)
 		return (1);
-	else
+	if (get_long_var(&philo->philo_mutex, &philo->times_eaten) >= must_eat_num)
 	{
-		set_bool_var(&philo->prog_data->prog_data_mutex,
-			1, &philo->prog_data->stop_flag);
-		return (0);
+		set_bool_var(&philo->philo_mutex, true, &philo->is_full);
+		full_philos_num++;
+		if (full_philos_num == philo_num)
+		{
+			set_bool_var(&philo->prog_data->prog_data_mutex, true,
+				&philo->prog_data->stop_flag);
+			return (0);
+		}
 	}
+	return (1);
 }
 
 static int	is_dead(t_philo *philo, long time_to_die_us)
@@ -76,7 +84,7 @@ void	*monitoring(void *data)
 		{
 			if (is_dead(&prog_data->philos[i], time_to_die))
 				break ;
-			if (!check_times_eaten(&prog_data->philos[i], must_eat))
+			if (!check_times_eaten(&prog_data->philos[i], must_eat, philo_num))
 				break ;
 		}
 	}
