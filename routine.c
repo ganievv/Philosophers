@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 13:20:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:00:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	*routine(void *data)
 		print_message(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep_us);
 		print_message(philo, "is thinking");
+		if (philo->philo_num % 2 != 0)
+			ft_usleep(philo->time_to_sleep_us);
 	}
 	return (NULL);
 }
