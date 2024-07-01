@@ -6,13 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/01 14:06:48 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:33:40 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// maybe you should not print message if philo is full
 
 long	ft_atol(const char *str)
 {
