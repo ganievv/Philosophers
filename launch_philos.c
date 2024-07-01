@@ -6,13 +6,22 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 12:58:33 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/01 15:58:45 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	mutexes_init(t_program *data)
+static void	set_fork(t_program *data, int i)
+{
+	int	left_fork_index;
+
+	left_fork_index = (i + 1) % data->philo_num;
+	data->philos[i].right_fork = &data->forks[i];
+	data->philos[i].left_fork = &data->forks[left_fork_index];
+}
+
+static void	mutexes_and_philo_init(t_program *data)
 {
 	int	i;
 
@@ -24,22 +33,22 @@ static void	mutexes_init(t_program *data)
 	}
 	pthread_mutex_init(&data->prog_data_mutex, NULL);
 	pthread_mutex_init(&data->print_mutex, NULL);
-}
-
-static void	set_fork(t_program *data, int i)
-{
-	int	left_fork_index;
-
-	left_fork_index = (i + 1) % data->philo_num;
-	data->philos[i].right_fork = &data->forks[i];
-	data->philos[i].left_fork = &data->forks[left_fork_index];
-}
-
-static int	philo_and_fork_init(t_program *data)
-{
-	int	i;
-
 	i = -1;
+	while (++i < data->philo_num)
+	{
+		data->philos[i].id = i;
+		data->philos[i].times_eaten = 0;
+		data->philos[i].prog_data = data;
+		data->philos[i].philo_num = data->philo_num;
+		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
+		data->philos[i].time_to_eat_us = data->time_to_eat_us;
+		data->philos[i].is_full = false;
+		set_fork(data, i);
+	}
+}
+
+static int	all_alloc_init(t_program *data)
+{
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->philos)
 		return (1);
@@ -50,17 +59,7 @@ static int	philo_and_fork_init(t_program *data)
 		free(data->philos);
 		return (1);
 	}
-	mutexes_init(data);
-	while (++i < data->philo_num)
-	{
-		data->philos[i].id = i;
-		data->philos[i].times_eaten = 0;
-		data->philos[i].prog_data = data;
-		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
-		data->philos[i].time_to_eat_us = data->time_to_eat_us;
-		data->philos[i].is_full = false;
-		set_fork(data, i);
-	}
+	mutexes_and_philo_init(data);
 	return (0);
 }
 
@@ -106,7 +105,7 @@ int	launch_philos(t_program *data)
 		printf("%ld 1 died\n", data->time_to_die_us / 1000);
 		return (0);
 	}
-	if (philo_and_fork_init(data))
+	if (all_alloc_init(data))
 		return (1);
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
