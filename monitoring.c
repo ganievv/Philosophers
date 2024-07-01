@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/29 13:21:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/01 16:27:29 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	is_dead(t_philo *philo, long time_to_die_us)
 			&philo->last_meal_time);
 	if (elapsed >= time_to_die_us / 1000)
 	{
-		print_message(philo, "died");
+		if (!get_bool_var(&philo->philo_mutex, &philo->is_full))
+			print_message(philo, "died");
 		set_bool_var(&prog_data->prog_data_mutex,
 			1, &prog_data->stop_flag);
 		return (1);
