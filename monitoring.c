@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/02 15:34:21 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:26:22 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void	*monitoring(void *data)
 
 	prog_data = (t_program *)data;
 	init_monitor_vars(prog_data, &philo_num, &time_to_die, &must_eat);
-	while (get_long_var(&prog_data->prog_data_mutex,
-			&prog_data->active_threads_num) != philo_num)
-		;
+	ft_usleep(time_to_die / 3);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		i = -1;
@@ -92,13 +90,10 @@ void	*monitoring(void *data)
 	return (NULL);
 }
 
-void	activate_threads_and_monitor(t_program *data, int *err_flag)
+void	create_monitor(t_program *data, int *err_flag)
 {
 	if (*err_flag)
 		return ;
-	set_ullong_var(&data->prog_data_mutex, take_time(MILLISECONDS),
-		&data->start_time);
-	set_bool_var(&data->prog_data_mutex, 1, &data->is_ready);
 	if (pthread_create(&data->th_monitoring, NULL,
 			monitoring, data) != 0)
 	{

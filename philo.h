@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/01 15:57:16 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:24:32 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ unsigned long long	take_time(t_time_units type);
 int					launch_philos(t_program *data);
 void				*routine(void *data);
 void				*monitoring(void *data);
-void				activate_threads_and_monitor(t_program *data,
-						int *err_flag);
+void				create_monitor(t_program *data, int *err_flag);
 
 bool				get_bool_var(pthread_mutex_t *mutex, bool *value);
 void				set_bool_var(pthread_mutex_t *mutex, bool value, bool *dst);

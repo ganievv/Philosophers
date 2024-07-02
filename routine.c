@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/01 16:00:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:15:06 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,6 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 	pthread_mutex_unlock(philo->right_fork);
 }
 
-static void	synchronize_philos(t_philo *philo, t_program *prog_data)
-{
-	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->is_ready))
-		;
-	set_ullong_var(&philo->philo_mutex, take_time(MILLISECONDS),
-		&philo->last_meal_time);
-}
-
 void	*routine(void *data)
 {
 	t_philo		*philo;
@@ -54,8 +46,7 @@ void	*routine(void *data)
 
 	philo = (t_philo *)data;
 	prog_data = philo->prog_data;
-	synchronize_philos(philo, prog_data);
-	increment_long(&prog_data->prog_data_mutex, &prog_data->active_threads_num);
+	philo->last_meal_time = take_time(MILLISECONDS);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag)
 		&& !get_bool_var(&philo->philo_mutex, &philo->is_full))
 	{

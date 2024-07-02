@@ -6,20 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/01 15:58:45 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/02 17:24:17 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	set_fork(t_program *data, int i)
-{
-	int	left_fork_index;
-
-	left_fork_index = (i + 1) % data->philo_num;
-	data->philos[i].right_fork = &data->forks[i];
-	data->philos[i].left_fork = &data->forks[left_fork_index];
-}
 
 static void	mutexes_and_philo_init(t_program *data)
 {
@@ -43,7 +34,8 @@ static void	mutexes_and_philo_init(t_program *data)
 		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
 		data->philos[i].time_to_eat_us = data->time_to_eat_us;
 		data->philos[i].is_full = false;
-		set_fork(data, i);
+		data->philos[i].right_fork = &data->forks[i];
+		data->philos[i].left_fork = &data->forks[(i + 1) % data->philo_num];
 	}
 }
 
@@ -89,6 +81,20 @@ static void	free_alloc_data(t_program *data, int *err_flag)
 		free(data->forks);
 }
 
+static int	handle_edge_cases(t_program *data)
+{
+	if (data->each_philo_must_eat_num == 0)
+		return (1);
+	if (data->philo_num == 1)
+	{
+		printf("0 1 has taken a fork\n");
+		ft_usleep(data->time_to_die_us);
+		printf("%ld 1 died\n", data->time_to_die_us / 1000);
+		return (1);
+	}
+	return (0);
+}
+
 int	launch_philos(t_program *data)
 {
 	int	i;
@@ -96,24 +102,18 @@ int	launch_philos(t_program *data)
 
 	i = -1;
 	err_flag = 0;
-	if (data->each_philo_must_eat_num == 0)
+	if (handle_edge_cases(data))
 		return (0);
-	if (data->philo_num == 1)
-	{
-		printf("0 1 has taken a fork\n");
-		ft_usleep(data->time_to_die_us);
-		printf("%ld 1 died\n", data->time_to_die_us / 1000);
-		return (0);
-	}
 	if (all_alloc_init(data))
 		return (1);
+	data->start_time = take_time(MILLISECONDS);
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
 		if (pthread_create(&data->philos[i].th, NULL,
 				routine, &data->philos[i]) != 0)
 			err_flag = 1;
 	}
-	activate_threads_and_monitor(data, &err_flag);
+	create_monitor(data, &err_flag);
 	free_alloc_data(data, &err_flag);
 	return (err_flag);
 }
