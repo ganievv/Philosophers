@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:11:03 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 13:31:01 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static int	is_dead(t_philo *philo, long time_to_die_us, int philo_num)
 {
 	long		elapsed;
 	t_program	*prog_data;
-	int			i;
 
-	i = -1;
 	prog_data = philo->prog_data;
 	elapsed = take_time(MILLISECONDS)
 		- get_ullong_var(&philo->last_meal_time_mutex, &philo->last_meal_time);
@@ -59,11 +57,12 @@ static int	is_dead(t_philo *philo, long time_to_die_us, int philo_num)
 static void	init_monitor_vars(t_program *prog_data, long *philo_num,
 	long *time_to_die, long *must_eat)
 {
-	pthread_mutex_lock(&prog_data->prog_data_mutex);
-	*philo_num = prog_data->philo_num;
-	*time_to_die = prog_data->time_to_die_us;
-	*must_eat = prog_data->each_philo_must_eat_num;
-	pthread_mutex_unlock(&prog_data->prog_data_mutex);
+	*philo_num = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->philo_num);
+	*time_to_die = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->time_to_die_us);
+	*must_eat = get_long_var(&prog_data->prog_data_mutex,
+			&prog_data->each_philo_must_eat_num);
 }
 
 void	*monitoring(void *data)
