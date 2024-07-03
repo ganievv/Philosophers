@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 11:53:29 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 13:11:03 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static int	is_dead(t_philo *philo, long time_to_die_us, int philo_num)
 		{
 			print_message(philo, "died");
 			set_bool_var(&prog_data->prog_data_mutex, 1, &prog_data->stop_flag);
-			while (++i < philo_num)
-				set_bool_var(&philo->stop_flag_mutex, true, &philo->stop_flag);
+			stop_all_philos(prog_data->philos, philo_num);
 			return (1);
 		}
 	}
@@ -77,7 +76,6 @@ void	*monitoring(void *data)
 
 	prog_data = (t_program *)data;
 	init_monitor_vars(prog_data, &philo_num, &time_to_die, &must_eat);
-	ft_usleep(time_to_die / 3);
 	while (!get_bool_var(&prog_data->prog_data_mutex, &prog_data->stop_flag))
 	{
 		i = -1;
@@ -92,20 +90,17 @@ void	*monitoring(void *data)
 	return (NULL);
 }
 
-void	create_monitor(t_program *data, int *err_flag)
+void	create_monitor(t_program *data)
 {
 	int	i;
 
 	i = -1;
-	if (*err_flag)
-		return ;
-	if (pthread_create(&data->th_monitoring, NULL,
-			monitoring, data) != 0)
+	data->start_time = take_time(MILLISECONDS);
+	while (++i < data->philo_num)
+		data->philos[i].last_meal_time = data->start_time;
+	if (pthread_create(&data->th_monitoring, NULL, monitoring, data) != 0)
 	{
-		set_bool_var(&data->prog_data_mutex, 1, &data->stop_flag);
-		while (++i < data->philo_num)
-			set_bool_var(&data->philos[i].stop_flag_mutex,
-				true, &data->philos[i].stop_flag);
-		*err_flag = 1;
+		set_bool_var(&data->prog_data_mutex, true, &data->stop_flag);
+		stop_all_philos(data->philos, data->philo_num);
 	}
 }
