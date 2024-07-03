@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/01 16:33:40 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 11:58:00 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	print_message(t_philo *philo, char *message)
 	current_time = take_time(MILLISECONDS);
 	pthread_mutex_lock(&philo->prog_data->print_mutex);
 	if (!get_bool_var(&philo->prog_data->prog_data_mutex,
-			&philo->prog_data->stop_flag))
+			&philo->prog_data->stop_flag)
+		&& !get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag))
 	{
 		printf("%lld %d %s\n",
 			(current_time - philo->prog_data->start_time),

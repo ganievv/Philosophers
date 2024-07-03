@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/02 17:24:32 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 12:20:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,19 @@ struct s_philo
 	pthread_t			th;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		philo_mutex;
+	pthread_mutex_t		last_meal_time_mutex;
+	pthread_mutex_t		stop_flag_mutex;
+	pthread_mutex_t		is_full_mutex;
 	int					id;
 	long				times_eaten;
 	long				time_to_sleep_us;
 	long				time_to_eat_us;
 	long				philo_num;
+	long				must_eat_num;
 	unsigned long long	last_meal_time;
 	bool				is_full;
+	bool				stop_flag;
+	bool				is_visited;
 };
 
 long				ft_atol(const char *str);
@@ -71,6 +76,8 @@ void				print_message(t_philo *philo, char *message);
 unsigned long long	take_time(t_time_units type);
 
 int					launch_philos(t_program *data);
+void				mutexes_init(t_program *data);
+void				free_alloc_data(t_program *data, int *err_flag);
 void				*routine(void *data);
 void				*monitoring(void *data);
 void				create_monitor(t_program *data, int *err_flag);
