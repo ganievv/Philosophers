@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 12:20:04 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 13:08:07 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void				mutexes_init(t_program *data);
 void				free_alloc_data(t_program *data, int *err_flag);
 void				*routine(void *data);
 void				*monitoring(void *data);
-void				create_monitor(t_program *data, int *err_flag);
+void				create_monitor(t_program *data);
+void				stop_all_philos(t_philo *philos, long philo_num);
 
 bool				get_bool_var(pthread_mutex_t *mutex, bool *value);
 void				set_bool_var(pthread_mutex_t *mutex, bool value, bool *dst);
