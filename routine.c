@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 12:14:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 13:03:11 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	*routine(void *data)
 	t_philo		*philo;
 
 	philo = (t_philo *)data;
-	set_ullong_var(&philo->last_meal_time_mutex,
-		take_time(MILLISECONDS), &philo->last_meal_time);
 	while (!get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag)
 		&& !get_bool_var(&philo->is_full_mutex, &philo->is_full))
 	{
