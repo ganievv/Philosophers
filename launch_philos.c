@@ -6,24 +6,16 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/02 17:24:17 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 12:19:46 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	mutexes_and_philo_init(t_program *data)
+static void	philo_init(t_program *data)
 {
 	int	i;
 
-	i = -1;
-	while (++i < data->philo_num)
-	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		pthread_mutex_init(&data->philos[i].philo_mutex, NULL);
-	}
-	pthread_mutex_init(&data->prog_data_mutex, NULL);
-	pthread_mutex_init(&data->print_mutex, NULL);
 	i = -1;
 	while (++i < data->philo_num)
 	{
@@ -31,11 +23,13 @@ static void	mutexes_and_philo_init(t_program *data)
 		data->philos[i].times_eaten = 0;
 		data->philos[i].prog_data = data;
 		data->philos[i].philo_num = data->philo_num;
+		data->philos[i].must_eat_num = data->each_philo_must_eat_num;
 		data->philos[i].time_to_sleep_us = data->time_to_sleep_us;
 		data->philos[i].time_to_eat_us = data->time_to_eat_us;
 		data->philos[i].is_full = false;
 		data->philos[i].right_fork = &data->forks[i];
 		data->philos[i].left_fork = &data->forks[(i + 1) % data->philo_num];
+		data->philos[i].is_visited = false;
 	}
 }
 
@@ -51,34 +45,9 @@ static int	all_alloc_init(t_program *data)
 		free(data->philos);
 		return (1);
 	}
-	mutexes_and_philo_init(data);
+	mutexes_init(data);
+	philo_init(data);
 	return (0);
-}
-
-static void	free_alloc_data(t_program *data, int *err_flag)
-{
-	int	i;
-
-	i = -1;
-	if (pthread_join(data->th_monitoring, NULL) != 0)
-		*err_flag = 1;
-	while (++i < data->philo_num)
-	{
-		if (pthread_join(data->philos[i].th, NULL) != 0)
-			*err_flag = 1;
-	}
-	i = -1;
-	pthread_mutex_destroy(&data->prog_data_mutex);
-	pthread_mutex_destroy(&data->print_mutex);
-	while (++i < data->philo_num)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		pthread_mutex_destroy(&data->philos[i].philo_mutex);
-	}
-	if (data->philos)
-		free(data->philos);
-	if (data->forks)
-		free(data->forks);
 }
 
 static int	handle_edge_cases(t_program *data)
