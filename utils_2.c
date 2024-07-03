@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:18:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 12:19:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 13:09:04 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	free_alloc_data(t_program *data, int *err_flag)
 		free(data->philos);
 	if (data->forks)
 		free(data->forks);
+}
+
+void	stop_all_philos(t_philo *philos, long philo_num)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo_num)
+		set_bool_var(&philos[i].stop_flag_mutex,
+			true, &philos[i].stop_flag);
 }
