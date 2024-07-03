@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:03:11 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 14:22:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		&philo->last_meal_time);
 	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us);
-	philo->times_eaten++;
-	if (philo->times_eaten >= philo->must_eat_num)
-		set_bool_var(&philo->is_full_mutex, true, &philo->is_full);
+	if (philo->must_eat_num != -1)
+	{
+		philo->times_eaten++;
+		if (philo->times_eaten >= philo->must_eat_num)
+			set_bool_var(&philo->is_full_mutex, true, &philo->is_full);
+	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
