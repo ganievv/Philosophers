@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:11:41 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:53:21 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	launch_philos(t_program *data)
 		return (0);
 	if (all_alloc_init(data))
 		return (1);
-	create_monitor(data);
 	while ((err_flag != 1) && (++i < data->philo_num))
 	{
 		if (pthread_create(&data->philos[i].th, NULL,
 				routine, &data->philos[i]) != 0)
 			err_flag = 1;
 	}
+	create_monitor(data);
 	free_alloc_data(data, &err_flag);
 	return (err_flag);
 }

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:31:01 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:20:57 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ void	create_monitor(t_program *data)
 	i = -1;
 	data->start_time = take_time(MILLISECONDS);
 	while (++i < data->philo_num)
+	{
+		data->philos[i].start_time = data->start_time;
 		data->philos[i].last_meal_time = data->start_time;
+	}
+	set_bool_var(&data->prog_data_mutex, true, &data->is_ready);
 	if (pthread_create(&data->th_monitoring, NULL, monitoring, data) != 0)
 	{
 		set_bool_var(&data->prog_data_mutex, true, &data->stop_flag);

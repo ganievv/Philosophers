@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:08:07 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:20:31 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ struct s_philo
 	long				philo_num;
 	long				must_eat_num;
 	unsigned long long	last_meal_time;
+	unsigned long long	start_time;
 	bool				is_full;
 	bool				stop_flag;
 	bool				is_visited;
