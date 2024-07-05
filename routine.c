@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/05 11:41:46 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/05 12:20:33 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	*routine(void *data)
 			&philo->prog_data->is_ready))
 		;
 	if (philo->id % 2 != 0)
-		ft_usleep(10);
+		ft_usleep(philo->time_to_eat_us / 2);
 	while (!get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag)
 		&& !get_bool_var(&philo->is_full_mutex, &philo->is_full))
 	{
