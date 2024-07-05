@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 09:33:06 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 11:58:00 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:32:56 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,13 @@ void	ft_usleep(useconds_t usec)
 
 void	print_message(t_philo *philo, char *message)
 {
-	unsigned long long	current_time;
-
-	current_time = take_time(MILLISECONDS);
 	pthread_mutex_lock(&philo->prog_data->print_mutex);
 	if (!get_bool_var(&philo->prog_data->prog_data_mutex,
 			&philo->prog_data->stop_flag)
 		&& !get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag))
 	{
 		printf("%lld %d %s\n",
-			(current_time - philo->prog_data->start_time),
+			(take_time(MILLISECONDS) - philo->start_time),
 			philo->id + 1, message);
 	}
 	pthread_mutex_unlock(&philo->prog_data->print_mutex);
