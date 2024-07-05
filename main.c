@@ -6,11 +6,16 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 15:05:25 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:57:09 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//don't forget to check norminette
+//Each philosopher should be a thread.
+
+//he said you need to launch them at the same time
 
 static int	is_num(char **argv)
 {
@@ -48,8 +53,8 @@ static void	prog_data_init(char **argv, int argc, t_program *data)
 		data->each_philo_must_eat_num = ft_atol(argv[5]);
 	else
 		data->each_philo_must_eat_num = -1;
-	data->stop_flag = 0;
-	data->is_ready = 0;
+	data->stop_flag = false;
+	data->is_ready = false;
 	data->active_threads_num = 0;
 }
 
