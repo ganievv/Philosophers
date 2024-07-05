@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 14:22:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:56:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	*routine(void *data)
 	t_philo		*philo;
 
 	philo = (t_philo *)data;
+	while (!get_bool_var(&philo->prog_data->prog_data_mutex,
+			&philo->prog_data->is_ready))
+		;
 	while (!get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag)
 		&& !get_bool_var(&philo->is_full_mutex, &philo->is_full))
 	{
