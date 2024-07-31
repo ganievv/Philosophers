@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/05 11:20:31 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:00:38 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ long				get_long_var(pthread_mutex_t *mutex, long *value);
 void				set_long_var(pthread_mutex_t *mutex, long value, long *dst);
 
 void				increment_long(pthread_mutex_t *mutex, long *var);
+
+int					ft_isdigit(int c);
+int					ft_isspace(char c);
 
 #endif

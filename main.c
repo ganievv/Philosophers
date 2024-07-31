@@ -6,39 +6,43 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:04:15 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 17:57:09 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:23:39 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//don't forget to check norminette
-//Each philosopher should be a thread.
-
-//he said you need to launch them at the same time
-
-static int	is_num(char **argv)
+static int	is_nbr(char *nbr)
 {
-	int	i;
-	int	y;
 	int	size;
 
-	i = 0;
-	while (argv[++i])
+	size = 0;
+	while (ft_isspace(*nbr))
+		nbr++;
+	if (*nbr == '-' || *nbr == '+')
+		nbr++;
+	if (*nbr == '\0')
+		return (0);
+	while (*nbr)
 	{
-		y = 0;
-		size = 0;
-		while (argv[i][y] == ' ' || (argv[i][y] >= 9 && argv[i][y] <= 13))
-			y++;
-		if (argv[i][y] == '-' || argv[i][y] == '+')
-			y++;
-		while (argv[i][y] >= '0' && argv[i][y] <= '9')
-		{
-			y++;
-			size++;
-		}
-		if (size == 0 || size > 10)
+		if (!ft_isdigit(*nbr))
 			return (0);
+		nbr++;
+		size++;
+	}
+	if (size > 10)
+		return (0);
+	else
+		return (1);
+}
+
+static int	check_argv(char **argv)
+{
+	while (*argv)
+	{
+		if (!is_nbr(*argv))
+			return (0);
+		argv++;
 	}
 	return (1);
 }
@@ -82,7 +86,7 @@ int	main(int argc, char **argv)
 {
 	t_program	data;
 
-	if ((argc == 5 || argc == 6) && is_num(argv))
+	if ((argc == 5 || argc == 6) && check_argv(argv + 1))
 	{
 		prog_data_init(argv, argc, &data);
 		if (!is_correct_num(&data, argc))
