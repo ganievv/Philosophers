@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 12:16:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/06/28 12:16:43 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:33:50 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	set_bool_var(pthread_mutex_t *mutex, bool value, bool *dst)
 {

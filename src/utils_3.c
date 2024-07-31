@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 15:57:35 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 16:00:14 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:36:12 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_isdigit(int c)
 {

@@ -6,11 +6,11 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:18:37 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/03 13:20:56 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:36:08 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	mutexes_init(t_program *data)
 {
