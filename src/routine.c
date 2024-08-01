@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 16:33:47 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:14:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
 	}
+	print_message(philo, "is eating");
 	set_ullong_var(&philo->last_meal_time_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
-	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us);
 	if (philo->must_eat_num != -1)
 	{
@@ -49,20 +49,23 @@ void	*routine(void *data)
 	t_philo		*philo;
 
 	philo = (t_philo *)data;
-	while (!get_bool_var(&philo->prog_data->prog_data_mutex,
+	while (!get_bool_var(&philo->prog_data->is_ready_mutex,
 			&philo->prog_data->is_ready))
-		;
+		usleep(10);
 	if (philo->id % 2 != 0)
+	{
+		print_message(philo, "is thinking");
 		ft_usleep(philo->time_to_eat_us / 2);
-	while (!get_bool_var(&philo->stop_flag_mutex, &philo->stop_flag)
+	}
+	while (!get_bool_var(&philo->prog_data->stop_flag_mutex_prog,
+		&philo->prog_data->stop_flag)
 		&& !get_bool_var(&philo->is_full_mutex, &philo->is_full))
 	{
 		take_forks_and_eat(philo, philo->time_to_eat_us);
 		print_message(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep_us);
 		print_message(philo, "is thinking");
-		if (philo->philo_num % 2 != 0)
-			ft_usleep(philo->time_to_sleep_us);
+		ft_usleep(1000);
 	}
 	return (NULL);
 }

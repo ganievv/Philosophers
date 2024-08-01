@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 16:00:38 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/01 20:12:51 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ typedef struct s_program
 	t_philo				*philos;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_mutex;
-	pthread_mutex_t		prog_data_mutex;
 	pthread_t			th_monitoring;
+	pthread_mutex_t		stop_flag_mutex_prog;
+	pthread_mutex_t		is_ready_mutex;
 	unsigned long long	start_time;
 	long				philo_num;
 	long				time_to_die_us;
@@ -46,7 +47,6 @@ typedef struct s_program
 	long				each_philo_must_eat_num;
 	bool				stop_flag;
 	bool				is_ready;
-	long				active_threads_num;
 }	t_program;
 
 struct s_philo
@@ -56,7 +56,6 @@ struct s_philo
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		last_meal_time_mutex;
-	pthread_mutex_t		stop_flag_mutex;
 	pthread_mutex_t		is_full_mutex;
 	int					id;
 	long				times_eaten;
