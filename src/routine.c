@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:48:52 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 20:14:54 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/01 21:09:54 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 		take_fork(philo->right_fork, philo);
 		take_fork(philo->left_fork, philo);
 	}
-	print_message(philo, "is eating");
 	set_ullong_var(&philo->last_meal_time_mutex, take_time(MILLISECONDS),
 		&philo->last_meal_time);
+	print_message(philo, "is eating");
 	ft_usleep(time_to_eat_us);
 	if (philo->must_eat_num != -1)
 	{
@@ -42,6 +42,14 @@ static void	take_forks_and_eat(t_philo *philo, long time_to_eat_us)
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+}
+
+static void	think(t_philo *philo)
+{
+	unsigned int	to_think;
+
+	to_think = (philo->time_to_eat_us * 2) - philo->time_to_sleep_us;
+	ft_usleep(to_think);
 }
 
 void	*routine(void *data)
@@ -65,7 +73,8 @@ void	*routine(void *data)
 		print_message(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep_us);
 		print_message(philo, "is thinking");
-		ft_usleep(1000);
+		if (philo->philo_num % 2 != 0)
+			think(philo);
 	}
 	return (NULL);
 }
