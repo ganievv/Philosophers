@@ -6,14 +6,14 @@
 #    By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/10 18:28:31 by sganiev           #+#    #+#              #
-#    Updated: 2024/07/31 16:43:12 by sganiev          ###   ########.fr        #
+#    Updated: 2024/08/01 22:27:42 by sganiev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRC = src/main.c src/utils_1.c src/launch_philos.c src/routine.c src/monitoring.c \
-src/getters.c src/setters.c src/utils_2.c src/utils_3.c \
+src/getters.c src/setters.c src/utils_2.c src/utils_3.c src/one_philo.c \
 
 CC = gcc
 

@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:22:33 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 20:12:51 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/01 22:25:41 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,8 @@ void				increment_long(pthread_mutex_t *mutex, long *var);
 
 int					ft_isdigit(int c);
 int					ft_isspace(char c);
+
+void				handle_one_philo(t_program *data);
+void				*routine_one_philo(void *data);
 
 #endif

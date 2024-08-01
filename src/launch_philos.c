@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 20:06:13 by sganiev           #+#    #+#             */
-/*   Updated: 2024/07/31 16:33:40 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/01 22:25:36 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ static int	handle_edge_cases(t_program *data)
 		return (1);
 	if (data->philo_num == 1)
 	{
-		printf("0 1 has taken a fork\n");
-		ft_usleep(data->time_to_die_us);
-		printf("%ld 1 died\n", data->time_to_die_us / 1000);
+		handle_one_philo(data);
 		return (1);
 	}
 	return (0);
