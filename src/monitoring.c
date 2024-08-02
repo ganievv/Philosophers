@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/02 14:59:44 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 15:36:14 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	is_dead(t_philo *philo, long time_to_die_us)
 	{
 		if (!get_bool_var(&philo->is_full_mutex, &philo->is_full))
 		{
-			set_bool_var(&prog_data->stop_flag_mutex_prog, true, &prog_data->stop_flag);
+			set_bool_var(&prog_data->stop_flag_mutex_prog, true,
+				&prog_data->stop_flag);
 			pthread_mutex_lock(&prog_data->print_mutex);
 			printf("%lld %d %s\n",
 				(take_time(MILLISECONDS) - prog_data->start_time),
@@ -75,7 +76,8 @@ void	*monitoring(void *data)
 
 	prog_data = (t_program *)data;
 	init_monitor_vars(prog_data, &philo_num, &time_to_die, &must_eat);
-	while (!get_bool_var(&prog_data->stop_flag_mutex_prog, &prog_data->stop_flag))
+	while (!get_bool_var(&prog_data->stop_flag_mutex_prog,
+			&prog_data->stop_flag))
 	{
 		i = -1;
 		while (++i < philo_num)
