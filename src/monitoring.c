@@ -6,7 +6,7 @@
 /*   By: sganiev <sganiev@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:51:36 by sganiev           #+#    #+#             */
-/*   Updated: 2024/08/01 20:17:50 by sganiev          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:59:44 by sganiev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ static int	is_dead(t_philo *philo, long time_to_die_us)
 	{
 		if (!get_bool_var(&philo->is_full_mutex, &philo->is_full))
 		{
-			print_message(philo, "died");
 			set_bool_var(&prog_data->stop_flag_mutex_prog, true, &prog_data->stop_flag);
+			pthread_mutex_lock(&prog_data->print_mutex);
+			printf("%lld %d %s\n",
+				(take_time(MILLISECONDS) - prog_data->start_time),
+				philo->id + 1, "died");
+			pthread_mutex_unlock(&prog_data->print_mutex);
 			return (1);
 		}
 	}
