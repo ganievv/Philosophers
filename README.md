@@ -38,7 +38,7 @@ make clean
 
 To completely clean and rebuild:
 ```bash
-make fclean && make
+make re
 ```
 
 ## Usage
